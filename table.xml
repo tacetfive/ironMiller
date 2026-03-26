@@ -2,8 +2,8 @@
 	 First 3 digits is count, 3 mid digits is turn angle, last 3 digits is db -->
 <tableOfPoints>
 	<head>KettlebellsInTheAirSummer2026</head>
-	<tableOfPointsTitle lang="en">"Kettlebels In The Air"</tableOfPointsTitle>
-	<tableOfPointsTitle lang="ru">"Kettlebels In The Air"</tableOfPointsTitle>
+	<tableOfPointsTitle lang="en">"Kettlebells In The Air"</tableOfPointsTitle>
+	<tableOfPointsTitle lang="ru">"Kettlebells In The Air"</tableOfPointsTitle>
 <!-- Mills -->
 	<element>
 <!--		 <element_id>"M001000000"<element_id> -->
@@ -14,10 +14,10 @@
 		 <title lang="en">simple lateral mill</title>
 		 <title lang="ru">простая боковая мельница</title>
 		 <turn>0</turn>
-		 <points flip=1 difficulty="A">0.2</points>
-		 <points flip=2 difficulty="B">0.3</points>
-		 <points flip=3 difficulty="C">0.4</points>
-		 <points flip=4 difficulty="D">0.5</points>
+		 <points flip="1" difficulty="A">0.2</points>
+		 <points flip="2" difficulty="B">0.3</points>
+		 <points flip="3" difficulty="C">0.4</points>
+		 <points flip="4" difficulty="D">0.5</points>
 	</element>
 	<element>
 		 <flip_prefix lang="en">×</flip_prefix>
@@ -25,10 +25,10 @@
 		 <title lang="en">simple mill 180°</title>
 		 <title lang="ru">простая мельница с поворотом 180°</title>
 		 <turn>180</turn>
-		 <points flip=1 difficulty="A">0.2</points>
-		 <points flip=2 difficulty="B">0.3</points>
-		 <points flip=3 difficulty="C">0.4</points>
-		 <points flip=4 difficulty="D">0.5</points>
+		 <points flip="1" difficulty="A">0.2</points>
+		 <points flip="2" difficulty="B">0.3</points>
+		 <points flip="3" difficulty="C">0.4</points>
+		 <points flip="4" difficulty="D">0.5</points>
 	</element>
 <!-- static -->
 	<element>
@@ -37,24 +37,25 @@
 		 <title lang="en">simple static</title>
 		 <title lang="ru">простая постановка</title>
 		 <turn>0</turn>
-		 <points flip=1 difficulty="A+">0.25</points>
-		 <points flip=2 difficulty="B+">0.35</points>
-		 <points flip=3 difficulty="C+">0.45</points>
-		 <points flip=4 difficulty="D+">0.55</points>
+		 <points flip="1" difficulty="A+">0.25</points>
+		 <points flip="2" difficulty="B+">0.35</points>
+		 <points flip="3" difficulty="C+">0.45</points>
+		 <points flip="4" difficulty="D+">0.55</points>
 	</element>
 
 	<element>
 		 <flip_prefix lang="en">×</flip_prefix>
 		 <flip_prefix lang="ru">-я</flip_prefix>
-		 <title lang="en", turn=0>simple static</title>
-		 <title lang="ru", turn=0>простая постановка</title>
-		 <title lang="en", turn=90>simple static with turn 90°</title>
-		 <title lang="ru", turn=90>простая постановка с поворотом 90°</title>
-		 <points flip=1 difficulty="A+">0.25</points>
-		 <points flip=2 difficulty="B+">0.35</points>
-		 <points flip=3 difficulty="C+">0.45</points>
-		 <points flip=4 difficulty="D+">0.55</points>
+		 <title lang="en">, turn=0>simple static</title>
+		 <title lang="ru">, turn=0>простая постановка</title>
+		 <title lang="en">, turn=90>simple static with turn 90°</title>
+		 <title lang="ru">, turn=90>простая постановка с поворотом 90°</title>
+		 <points flip="1" difficulty="A+">0.25</points>
+		 <points flip="2" difficulty="B+">0.35</points>
+		 <points flip="3" difficulty="C+">0.45</points>
+		 <points flip="4" difficulty="D+">0.55</points>
 	</element>
+</tableOfPoints>
 
 
 <!--
@@ -156,4 +157,4 @@ categories:
 
 
 -->
-</tableOfPoints>
+
