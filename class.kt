@@ -12,12 +12,18 @@ open class ElementUnique (
     var difficulty: string // may be a Set of strings (A B C D)
     var points: Double
     var bonusPoints: Double? = 0
+    var isActive: Boolean = true
     var isInSeq: Boolean = false // is this element in sequence with previous?
+    var isInBlock: Boolean = false // is this element in sequences block with previous?
     var prev: ElementUnique? = null
     var next: ElementUnique? = null
 ) {
     set(flip) {
         <<change difficulty and points>>
+    }
+    fun activateDeactivateElement(): Unit {
+	if(isActive) { isActive = false }
+	else { isActive = true }
     }
     fun addInSeq(): Unit { // add this element in Sequence with previous.
         if ( prev == null ) {
@@ -41,24 +47,61 @@ open class ElementUnique (
 }
 
 class ElementProgram : ElementUnique {
-    var title: String
+    var title: String = "new program"
     var sum: Double
-    var elementProgram: MutableList<ElementSequence>
-    constructor
-    fun addElement(newElement: ElementUnique) { // add an unique element
-        if ()
+    private var head: ElementUnique? = null
+    private var tail: ElementUnique? = null
+    private var size = 0
+    fun addAtHead(newElement: ElementUnique): Unit { // add an unique element
+        if ( head == null ) {
+	    head = newElement
+	    size++
+	}
+	else {
+	    if (tail == null) { 
+		tail = head
+		tail.prev = newElement
+	    }
+	    head.prev = newElement
+	    newElement.next = head
+	    head = newElement
+	    size++
+	}
     }
-    fun swap()
-    fun changeElementPosition(source: ElementUnique, target: ElementUnique) {
-        val temp = source
-        source = target
-        target = temp
+    fun addAtTail(newElement: ElementUnique) { // add an unique element
+        if ( tail == null ) {
+	    head = newElement
+	    size++
+	}
+	else {
+	    head.prev = newElement
+	    newElement.next = head
+	    size++
+	}
+    }
+    fun swap(source: ElementUnique, target: ElementUnique) {
+        val tempPrev = source.prev
+        val tempNext = source.next
+	source.prev = target.prev  
+	source.next = target.next
+	target.prev = tempPrev
+	target.next = tempNext
         source.countBonusPoints()
         target.countBonusPoints()
     }
-    fun activateDeactivateSequence(): Unit {
-        if (is_active) { is_active = false }
-        if (!is_active) { is_active = true }
+    fun activateDeactivateSequence(seqStart): Unit {
+        if (seqStart.isActive) { 
+	    do {
+		seqStart.isActive = false
+		seqStart = seqStart.next
+	    } while(seqStart.isInSeq == true)
+	}
+	else {
+	    do {
+		seqStart.isActive = true
+		seqStart = seqStart.next
+	    } while(seqStart.isInSeq == true)
+	}
     }
 }
 
