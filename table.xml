@@ -1,4 +1,5 @@
-<!-- element id rule: M for mills, F for front throws L for lateral. 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- element id rule: M for mills, F for front throws L for lateral.
 	 First 3 digits is count, 3 mid digits is turn angle, last 3 digits is db -->
 <tableOfPoints>
 	<head>KettlebellsInTheAirSummer2026</head>
