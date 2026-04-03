@@ -17,14 +17,13 @@ open class ElementUnique constructor(
     }
 }
 
-class ElementSequence : ElementUnique {
+class ElementSequence (
     val sequenceID
     var title: String
     var titleShort: String
-	var elementSeq: MutableList<ElementUnique>(1) {  }
-    var bonusScore: Array<Double>(elementSeq.size()) = countBonusScore(elementSeq)
+    var elementSeq: MutableList<ElementUnique>(1) {  }
     var is_active: Boolean = true
-    constructor()
+) : ElementUnique {
     fun addElement(elementIndex: Int, addingElement: ElementUnique): Unit { // elementIndex: Int = (elementSeq.size() - 1),
 	    this.elementSeq.add(elementIndex, addingElement)
         countBonusScore(bonusScore, elementSeq)
