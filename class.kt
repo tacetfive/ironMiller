@@ -3,23 +3,22 @@ package com.github.
 import kotlin.Double
 
 open class ElementUnique (
-    val elementID: Int // ID must be unique inside what????
-    val title: String
-    val titleShort: String
-    val flip_prefix: String
-    val turn: Int
-    var flip: Int
-    var difficulty: string // may be a Set of strings (A B C D)
-    var points: Double
-    var bonusPoints: Double? = 0
-    var isActive: Boolean = true
-    var isInSeq: Boolean = false // is this element in sequence with previous?
-    var isInBlock: Boolean = false // is this element in sequences block with previous?
-    var prev: ElementUnique? = null
-    var next: ElementUnique? = null
+    val elementID: Int, // ID must be unique inside what????
+    val title: String,
+    val titleShort: String,
+    val flipPrefix: String,
+    val turn: Int,
+    var flip: Int,
+    var difficulty: string, // may be a Set of strings (A B C D)
+    var points: Double,
+    var bonusPoints: Double? = 0,
+    var isActive: Boolean = true,
+    var isInSeq: Boolean = false, // is this element in sequence with previous?
+    var isInBlock: Boolean = false, // is this element in sequences block with previous?
+    var next: ElementUnique? = null,
 ) {
     set(flip) {
-        <<change difficulty and points>>
+       // <<change difficulty and points>>
     }
     fun activateDeactivateElement(): Unit {
 	if(isActive) { isActive = false }
@@ -42,7 +41,7 @@ open class ElementUnique (
         if (isInSeq)
             bonusPoints = (this.points + this.prev.points) / 2
         else
-            bonusPoints = 0.
+            bonusPoints = 0.0
     }
 }
 
@@ -60,14 +59,15 @@ class ElementProgram : ElementUnique {
 	else {
 	    if (tail == null) { 
 		tail = head
-		tail.prev = newElement
 	    }
-	    head.prev = newElement
 	    newElement.next = head
 	    head = newElement
 	    size++
 	}
     }
+	fun addToIndex(newElement: ElementUnique): Unit {
+		if
+	}
     fun addAtTail(newElement: ElementUnique) { // add an unique element
         if ( tail == null ) {
 	    head = newElement
