@@ -11,7 +11,7 @@ open class ElementUnique (
     var flip: Int,
     var difficulty: string, // may be a Set of strings (A B C D)
     var points: Double,
-    var bonusPoints: Double? = 0,
+    var bonusPoints: Double = 0,
     var isActive: Boolean = true,
     var isInSeq: Boolean = false, // is this element in sequence with previous?
     var isInBlock: Boolean = false, // is this element in sequences block with previous?
@@ -21,113 +21,169 @@ open class ElementUnique (
        // <<change difficulty and points>>
     }
     fun activateDeactivateElement(): Unit {
-	if(isActive) { isActive = false }
-	else { isActive = true }
+        isActive = !isActive 
     }
-    fun addInSeq(): Unit { // add this element in Sequence with previous.
-        if ( prev == null ) {
-            // throw an error
-        }
-        else {
+    fun addInSeq(): Unit { // add next element in Sequence with current
+        if ( next != null ) { 
             isInSeq = true
-            countBonusPoints()
+        } else {
+            return
         }
+        countBonusPoints()
     }
-    fun rmFromSeq(): Unit { // remove this element from Sequence with prev
+    fun rmFromSeq(): Unit { // remove next element from Sequence with current
         isInSeq = false
         countBonusPoints()
     }
     fun countBonusPoints(): Unit {
         if (isInSeq)
-            bonusPoints = (this.points + this.prev.points) / 2
+            bonusPoints = (points + next.points) / 2
         else
             bonusPoints = 0.0
     }
 }
 
-class ElementProgram : ElementUnique {
+class ElementProgram ( 
     var title: String = "new program"
-    var sum: Double
     private var head: ElementUnique? = null
     private var tail: ElementUnique? = null
-    private var size = 0
+    private var size = 0 
+) : ElementUnique {
     fun addAtHead(newElement: ElementUnique): Unit { // add an unique element
         if ( head == null ) {
-	    head = newElement
-	    size++
-	}
-	else {
-	    if (tail == null) { 
-		tail = head
-	    }
-	    newElement.next = head
-	    head = newElement
-	    size++
-	}
+            head = newElement
+            tail = newElement
+            size++
+        }
+        else {
+            newElement.next = head
+            head = newElement
+            size++
+        }
     }
-	fun addToIndex(newElement: ElementUnique): Unit {
-		if
-	}
     fun addAtTail(newElement: ElementUnique) { // add an unique element
         if ( tail == null ) {
-	    head = newElement
-	    size++
-	}
-	else {
-	    head.prev = newElement
-	    newElement.next = head
-	    size++
-	}
+            tail = newElement
+            head = newElement
+            size++
+        }
+        else {
+            tail.next = newElement
+            tail = newElement
+            size++
+        }
     }
-    fun swap(source: ElementUnique, target: ElementUnique) {
-        val tempPrev = source.prev
-        val tempNext = source.next
-	source.prev = target.prev  
-	source.next = target.next
-	target.prev = tempPrev
-	target.next = tempNext
-        source.countBonusPoints()
-        target.countBonusPoints()
+    fun getByIndex(index: Int): ElementUnique {
+        result = head
+        for (i, i < index, i++) {
+            result = result.next
+        }
+        return result
     }
-    fun activateDeactivateSequence(seqStart): Unit {
-        if (seqStart.isActive) { 
-	    do {
-		seqStart.isActive = false
-		seqStart = seqStart.next
-	    } while(seqStart.isInSeq == true)
-	}
-	else {
-	    do {
-		seqStart.isActive = true
-		seqStart = seqStart.next
-	    } while(seqStart.isInSeq == true)
-	}
+    fun addToIndex(newElement: ElementUnique, index: Int): Unit {
+        currentElement = getByIndex(index)
+        newElement.next = currentElement.next
+        currentElement.next = newElement
+        size++
+    }
+    fun swap(source: Int, target: Int) {
+        sourceElement = getByIndex(source)
+        targetElement = getByIndex(target)
+        temp = sourceElement.next
+        sourceElement.next = targetElement.next
+        targetElement.next = temp
+        sourceElement.countBonusPoints()
+        targetElement.countBonusPoints()
+    }
+    fun activateDeactivateSequence(startIndex: Int): Unit {     // !!! what if element inside Seq is deactivated
+        seqFirstElement = getByIndex(startIndex)
+        do {
+            seqFirstElement.isActive = !seqFirstElement.isActive
+            seqFirstElement = seqFirstElement.next
+        } while( seqFirstElement.isInSeq == true )
+    }
+    fun clearSeq(): Unit {
+        while (head != null) {
+            tmp = head
+            head = head.next
+            tmp = null
+            size--
+        }
+    }
+    fun removeElement(index: Int) {
+        previousElement = getByIndex(index - 1)
+        previousElement.next = previousElement.next.next
+        size--
+    }
+    fun calcSum(): Double {
+        var sum: Double = 0.0
+        var tmp = head
+        while(tmp != null) {
+            sum = sum + tmp.points + tmp.bonusPoints
+            tmp = tmp.next
+        }
+        return sum
+    }
+    fun cascade(index: Int): Unit { // add to sequense all elements from index to head
+        tmp = getByIndex(index - 1)
+        for(i = index - 1, i < size, i++) {
+            tmp.isInSeq = true
+            tmp = tmp.next // ?: return
+        }
+    }
+    fun 
+}
+
+class Profile ( var profileName: String = "Kettlebell Juggler" ) {
+    val profilePrograms: List<ElementProgram> // private????
+    fun addProgram(programName: String): Unit {
+        profilePrograms.add(ElementSequence(title = programName))
+    }
+    fun removeProgram(programIndex: Int): Unit {
+        profilePrograms.removeAt(programIndex)
+    }
+    fun copyProgram(programIndex: Int): Unit {
+        profilePrograms.add(profilePrograms[programIndex])
+    }
+    set(profileName) {}
+}
+
+class Profiles() {
+    val profiles: List<Profile>
+    fun addProfile(name: String): Unit {
+        profiles.add(Profile(profileName = name))
+    }
+    fun removeProfile(profileIndex: Int): Unit {
+        profiles.removeAt(profileIndex)
+    }
+    fun copyProfile(profileIndex: Int): Unit {
+        profiles.add(profiles[profileIndex])
     }
 }
 
-class Profile {
-    var profileName: String
-    var profilePrograms: List<ElementProgram>
-    constructor(profileName: String = "Kettlebell Juggler") {
-        this.profileName = profileName
-    }
-    fun copyProgram(): Unit {
-        var
-    }
-    set(profileName)
-}
 
-
-fun main {
-//    create/choose/open_recent profile
-//    user actions:
+fun main(): Unit {
     var dataBase = "table.xml"
-	if (true) { // user press "add element" first time
-	    call createProgram
-	if user press "add element"
-	    call addElement
-    Program checks:
-	are there duplicates in elementProgram;
+    var currentProfile: Int = 0
+    var currentProgram: Int = 0
+    val p: Profiles()
+    var index: Int = 0
+    p.profiles.addProfile("Anton") // create new profile
+    p.profiles[currentProfile].addProgram("Kettlebells in the Air 2026 spring")
+    val c = p.profiles[currentProfile].profilePrograms[currentProgram]
+    c.addAtHead(
+        title = ,
+        points = ,
+    )
+    index = 3
+    c.getByIndex(index - 1).addInSeq()
+
+
+    
+
+}
+//    Program checks:
+//    are there duplicates in elementProgram;
 
 
 /*
@@ -135,7 +191,7 @@ class ElementSequence : ElementUnique {
     val sequenceID
     var title: String
     var titleShort: String
-	var elementSeq: MutableList<ElementUnique>(1) {  }
+    var elementSeq: MutableList<ElementUnique>(1) {  }
     var bonusScore: Array<Double>(elementSeq.size()) = countBonusScore(elementSeq)
     var is_active: Boolean = true
     constructor()
