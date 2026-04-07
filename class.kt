@@ -1,6 +1,7 @@
 package com.github.
 
 import kotlin.Double
+import kotlin.plus
 
 open class ElementUnique (
     val elementID: Int, // ID must be unique inside what????
@@ -9,37 +10,33 @@ open class ElementUnique (
     val flipPrefix: String,
     val turn: Int,
     var flip: Int,
-    var difficulty: string, // may be a Set of strings (A B C D)
-    var points: Double,
-    var bonusPoints: Double = 0,
+    var difficulty: string, // may be an enum of strings (A B C D)
+    var points: Double,     // depends on flips
     var isActive: Boolean = true,
-    var isInSeq: Boolean = false, // is this element in sequence with previous?
+    var isInSeq: Boolean = false, // is next element in sequence with current?
     var isInBlock: Boolean = false, // is this element in sequences block with previous?
     var next: ElementUnique? = null,
 ) {
-    set(flip) {
-       // <<change difficulty and points>>
-    }
-    fun activateDeactivateElement(): Unit {
+    fun activateDeactivateElement(): Unit { // checkbox function
         isActive = !isActive 
     }
-    fun addInSeq(): Unit { // add next element in Sequence with current
-        if ( next != null ) { 
-            isInSeq = true
-        } else {
-            return
-        }
+// addIn and removeFrom are different functions because it will be on different buttons
+    fun addToSeq(): Unit { // add next element in Sequence with current
+        if ( next != null ) isInSeq = true
+        else return
         countBonusPoints()
     }
     fun rmFromSeq(): Unit { // remove next element from Sequence with current
         isInSeq = false
         countBonusPoints()
     }
-    fun countBonusPoints(): Unit {
+    fun bonusPoints(): Double {
+        var result: Double = 0
         if (isInSeq)
-            bonusPoints = (points + next.points) / 2
+            result = (points + next.points) / 2
         else
-            bonusPoints = 0.0
+            result = 0
+        return result
     }
 }
 
@@ -92,15 +89,16 @@ class ElementProgram (
         temp = sourceElement.next
         sourceElement.next = targetElement.next
         targetElement.next = temp
-        sourceElement.countBonusPoints()
-        targetElement.countBonusPoints()
+        calcSum()
     }
     fun activateDeactivateSequence(startIndex: Int): Unit {     // !!! what if element inside Seq is deactivated
-        seqFirstElement = getByIndex(startIndex)
-        do {
-            seqFirstElement.isActive = !seqFirstElement.isActive
-            seqFirstElement = seqFirstElement.next
-        } while( seqFirstElement.isInSeq == true )
+        var tmp = getByIndex(startIndex)
+        val flag = tmp.isInSeq
+        while( tmp.isInSeq == true ) {
+            tmp.isActive = !flag
+            tmp = tmp.next
+        }
+        tmp.isActive = !flag
     }
     fun clearSeq(): Unit {
         while (head != null) {
@@ -110,28 +108,45 @@ class ElementProgram (
             size--
         }
     }
+    fun removeHead() {
+        head = head.next
+        size--
+    }
     fun removeElement(index: Int) {
-        previousElement = getByIndex(index - 1)
+        val previousElement = getByIndex(index - 1)
         previousElement.next = previousElement.next.next
         size--
     }
+    // optimization excersice: recalculate not a whole sum, but just changed fieds
     fun calcSum(): Double {
         var sum: Double = 0.0
         var tmp = head
         while(tmp != null) {
-            sum = sum + tmp.points + tmp.bonusPoints
+            sum = sum + tmp.points + tmp.bonusPoints()
             tmp = tmp.next
         }
         return sum
     }
-    fun cascade(index: Int): Unit { // add to sequense all elements from index to head
-        tmp = getByIndex(index - 1)
-        for(i = index - 1, i < size, i++) {
+    fun cascadeSeq (index: Int): Unit { // add to sequense all elements from index to tail
+        var tmp = getByIndex(index)
+        while(tmp != null) {
             tmp.isInSeq = true
             tmp = tmp.next // ?: return
         }
     }
-    fun 
+    fun collapseSeq (index: Int): Unit {
+        var tmp = getByIndex(index)
+        while( tmp != null && tmp.isInSeq == true ) {
+            seqFirstElement.isActive = !flag
+            seqFirstElement = seqFirstElement.next
+        }
+    }
+    fun addToSeq(index: Int) {
+        getByIndex(index - 1).addInSeq()
+    }
+    fun rmFromSeq(index: Int) {
+        getByIndex(index - 1).rmFromSeq()
+    }
 }
 
 class Profile ( var profileName: String = "Kettlebell Juggler" ) {
@@ -145,7 +160,6 @@ class Profile ( var profileName: String = "Kettlebell Juggler" ) {
     fun copyProgram(programIndex: Int): Unit {
         profilePrograms.add(profilePrograms[programIndex])
     }
-    set(profileName) {}
 }
 
 class Profiles() {
@@ -176,12 +190,16 @@ fun main(): Unit {
         points = ,
     )
     index = 3
-    c.getByIndex(index - 1).addInSeq()
+    c.addToSeq(index)
 
 
     
 
 }
+
+
+
+
 //    Program checks:
 //    are there duplicates in elementProgram;
 
