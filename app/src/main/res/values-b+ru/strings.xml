@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Железный Мельник</string>
+    <string name="flips">Обороты</string>
+
+    <!--    Localized descriptions -->
+    <string name="button_add_description">Add new element in program</string>
+    <string name="button_add_to_sequence_description">Add this element in sequence with previous</string>
+    <string name="button_remove_from_seq_description">Remove this element from sequence</string>
+    <string name="button_cascade_description">Add all following elements in sequence</string>
+    <string name="button_collapse_description">Collapse sequence</string>
+    <string name="button_drag_description">Drag element or sequence</string>
+    <string name="button_edit_mode_description">Edit elements</string>
+    <string name="button_menu_description">Main menu</string>
+    <string name="button_redo_description">Redo</string>
+    <string name="button_undo_description">Undo</string>
+
+    <string name="button_show_points_description">Show/hide points</string>
+    <string name="button_show_aux_points_description">Show/hide sequence points</string>
+
+</resources>

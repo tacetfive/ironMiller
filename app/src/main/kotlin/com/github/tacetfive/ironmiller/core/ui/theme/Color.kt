@@ -1,0 +1,61 @@
+package com.github.tacetfive.ironmiller.core.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+
+val Purple40 = Color(0xFF6650a4)
+val PurpleGrey40 = Color(0xFF9890A2)
+val Pink40 = Color(0xFF7D5260)
+
+
+val Black = Color(0xFF000000)
+val White = Color(0xFFFFFFFF)
+
+val Green100 = Color(0xFFCCE8DB)
+val Green300 = Color(0xFF67C89B)
+val Green400 = Color(0xFF42B883)
+val Green600 = Color(0xFF005233)
+val Green700 = Color(0xFF003826)
+val Green800 = Color(0xFF002C1A)
+val Green900 = Color(0xFF131F06)
+
+val Salat100 = Color(0xFFE6F4D6)
+val Salat300 = Color(0xFFC9E58A)
+val Salat500 = Color(0xFF97CE4C)
+val Salat700 = Color(0xFF354C1F)
+val Salat800 = Color(0xFF223511)
+
+val Red100 = Color(0xFFFFDAD6)
+val Red200 = Color(0xFFFFB4AB)
+val Red500 = Color(0xFFBA1A1A)
+val Red600 = Color(0xFF93000A)
+val Red800 = Color(0xFF690005)
+val Red900 = Color(0xFF410002)
+
+val Grey50 = Color(0xFFF8F9FA)
+val Grey75 = Color(0xFFF8F8F8)
+val Grey100 = Color(0xFFF2F2F2)
+val Grey125 = Color(0xFFECECEC)
+val Grey150 = Color(0xFFE8E8E8)
+val Grey175 = Color(0xFFE6E6E6)
+val Grey200 = Color(0xFFE0E3DD)
+val Grey250 = Color(0xFFE0E0E0)
+val Grey300 = Color(0xFFCDCDCD)
+val Grey400 = Color(0xFFC3C8BE)
+val Grey450 = Color(0xFF8D9388)
+val Grey500 = Color(0xFF73796F)
+val Grey600 = Color(0xFF454745)
+val Grey650 = Color(0xFF424742)
+val Grey700 = Color(0xFF3C3E44)
+val Grey750 = Color(0xFF363636)
+val Grey800 = Color(0xFF2F312F)
+val Grey825 = Color(0xFF2D2D2D)
+val Grey850 = Color(0xFF252525)
+val Grey875 = Color(0xFF1F1F1F)
+val Grey900 = Color(0xFF1E1E1E)
+val Grey925 = Color(0xFF1A1C1A)
+val Grey950 = Color(0xFF191919)
+val Grey975 = Color(0xFF121212)

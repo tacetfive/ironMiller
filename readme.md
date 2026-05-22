@@ -1,0 +1,1 @@
+addToBlock button appears only on unique elements or sequence start elements.
